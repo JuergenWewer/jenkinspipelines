@@ -11,6 +11,8 @@ pipeline{
             agent any
             steps {
                 sh '''git remote set-url origin https://github.com/JuergenWewer/deploymentrepository.git
+                git config --global user.email "juergen.wewer@gmail.com"
+                git config --global user.name "jenkins"
                 git add .
                 git commit -m "initial setup"
                 git push
