@@ -10,12 +10,10 @@ pipeline{
         stage('push Repo to deployment Repo') {
             agent any
             steps {
-                sh '''git remote set-url origin https://github.com/JuergenWewer/deploymentrepository.git
-                git config --global user.email "juergen.wewer@gmail.com"
-                git config --global user.name "jenkins"
-                git add .
-                git commit -m "initial setup"
-                git push
+                sh '''
+                git remote rename origin upstream
+                git remote add origin https://github.com/JuergenWewer/deploymentrepository.git
+                git push origin master
                 '''
            }
         }
