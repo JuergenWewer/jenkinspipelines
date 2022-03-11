@@ -18,7 +18,7 @@ pipeline{
                 git add .
                 '''
            }
-           node {
+           steps {
              withCredentials([gitUsernamePassword(credentialsId: 'gitJWId', gitToolName: 'Default')]) {
                 sh '''
                 git push origin HEAD:main
