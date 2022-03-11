@@ -18,10 +18,12 @@ pipeline{
                 git add .
                 '''
            }
-           withCredentials([gitUsernamePassword(credentialsId: 'gitJWId', gitToolName: 'Default')]) {
+           node {
+             withCredentials([gitUsernamePassword(credentialsId: 'gitJWId', gitToolName: 'Default')]) {
                 sh '''
                 git push origin HEAD:main
                 '''
+             }
            }
         }
     }
