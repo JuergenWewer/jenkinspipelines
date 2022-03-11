@@ -13,14 +13,14 @@ pipeline{
                 sh '''
                 git remote rename origin upstream
                 git remote add origin https://github.com/JuergenWewer/deploymentrepository.git
-                git push origin master
+                git push origin main
                 '''
            }
         }
     }
     post {
         always {
-            cleanWs()
+            deleteDir()
         }
     }
 }
