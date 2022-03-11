@@ -19,7 +19,7 @@ pipeline{
                 '''
                 withCredentials([gitUsernamePassword(credentialsId: 'gitJWId', gitToolName: 'Default')]) {
                    sh '''
-                   git push origin HEAD:main
+                   git push -f origin HEAD:main
                    '''
                 }
            }
