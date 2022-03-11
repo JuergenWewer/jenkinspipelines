@@ -14,7 +14,7 @@ pipeline{
                 git config --global user.email "juergen.wewer@gmail.com"
                 git config --global user.name "jenkins"
                 git remote rename origin upstream
-                git remote add origin https://github.com/JuergenWewer/deploymentrepository.git
+                git remote add origin https://{username}:{password}@github.com/JuergenWewer/deploymentrepository.git
                 git add .
                 git push origin HEAD:main
                 '''
