@@ -17,7 +17,7 @@ pipeline{
                 git remote add origin https://github.com/JuergenWewer/deploymentrepository.git
                 git add .
                 git commit -m "initial setup"
-                git push origin main
+                git push origin HEAD:main
                 '''
            }
         }
