@@ -17,13 +17,11 @@ pipeline{
                 git remote add origin https://{juergen.wewer@gmail.com}:{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}@github.com/JuergenWewer/deploymentrepository.git
                 git add .
                 '''
-           }
-           steps {
-             withCredentials([gitUsernamePassword(credentialsId: 'gitJWId', gitToolName: 'Default')]) {
-                sh '''
-                git push origin HEAD:main
-                '''
-             }
+                withCredentials([gitUsernamePassword(credentialsId: 'gitJWId', gitToolName: 'Default')]) {
+                   sh '''
+                   git push origin HEAD:main
+                   '''
+                }
            }
         }
     }
