@@ -16,6 +16,8 @@ pipeline{
                 git remote rename origin upstream
                 git remote add origin https://github.com/JuergenWewer/deploymentrepository.git
                 git add .
+                ls -al
+                pwd
                 '''
                 withCredentials([gitUsernamePassword(credentialsId: 'gitJWId', gitToolName: 'Default')]) {
                    sh '''
