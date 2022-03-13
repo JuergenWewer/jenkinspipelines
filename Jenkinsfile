@@ -1,5 +1,5 @@
 pipeline{
-    agent none
+    agent any
     stages {
         stage('cloneRepo') {
             agent any
@@ -11,6 +11,7 @@ pipeline{
             agent any
             steps {
                 sh '''
+                git 'https://github.com/JuergenWewer/yuuvis.git'
                 git config --global user.email "juergen.wewer@gmail.com"
                 git config --global user.name "jenkins"
                 git remote rename origin upstream
