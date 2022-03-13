@@ -4,6 +4,7 @@ pipeline{
         stage('push Repo to deployment Repo') {
             agent any
             steps {
+                deleteDir()
                 sh '''
                 git clone 'https://github.com/JuergenWewer/yuuvis.git'
                 git config --global user.email "juergen.wewer@gmail.com"
