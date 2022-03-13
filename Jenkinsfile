@@ -13,6 +13,7 @@ pipeline{
                 git remote rename origin upstream
                 git remote add origin https://github.com/JuergenWewer/deploymentrepository.git
                 git add .
+                git commit -m "initial commit"
                 ls -al
                 pwd
                 '''
