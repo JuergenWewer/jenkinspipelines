@@ -10,16 +10,15 @@ pipeline{
                 git config --global user.email "juergen.wewer@gmail.com"
                 git config --global user.name "jenkins"
                 cd yuuvis
-                git remote rename origin upstream
-                git remote add origin https://github.com/JuergenWewer/deploymentrepository.git
-                git add .
-                git commit -m "initial commit"
-                ls -al
-                pwd
                 '''
                 withCredentials([gitUsernamePassword(credentialsId: 'gitJWId', gitToolName: 'Default')]) {
                    sh '''
-                   git push -f origin HEAD:main
+                   git remote add upstream https://github.com/JuergenWewer/deploymentrepository.git
+                   git push upstream master
+                   git checkout upstream/main
+                   git merge -X theirs upstream/master --allow-unrelated-histories --no-edit
+                   git push upstream HEAD:main
+                   git push --delete upstream master
                    '''
                 }
            }
