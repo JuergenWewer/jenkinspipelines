@@ -23,6 +23,7 @@ pipeline{
                    git checkout main
                    ls
                    rm -r rack
+                   ls
                    git read-tree --prefix=rack/ -u rack_branch
                    git checkout rack_branch
                    git pull
