@@ -12,7 +12,6 @@ pipeline{
                    git clone https://github.com/JuergenWewer/deploymentrepository.git
                    ls -al
                    cd deploymentrepository
-                   git fetch
                    git remote add rack_remote https://github.com/JuergenWewer/yuuvis.git
                    git show-ref
                    pwd
