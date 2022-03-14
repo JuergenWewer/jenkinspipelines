@@ -9,10 +9,12 @@ pipeline{
                 git clone 'https://github.com/JuergenWewer/yuuvis.git'
                 git config --global user.email "juergen.wewer@gmail.com"
                 git config --global user.name "jenkins"
-                cd yuuvis
                 '''
                 withCredentials([gitUsernamePassword(credentialsId: 'gitJWId', gitToolName: 'Default')]) {
                    sh '''
+                   cd yuuvis
+                   pwd
+                   ls
                    git remote add upstream https://github.com/JuergenWewer/deploymentrepository.git
                    git push upstream master
                    git checkout upstream/main
