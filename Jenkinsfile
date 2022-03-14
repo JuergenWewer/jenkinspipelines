@@ -21,7 +21,7 @@ pipeline{
                    git pull upstream --rebase main
                    git show-ref
                    git checkout upstream/main
-                   git merge -X theirs upstream/master -Xsubtree=yuuvispath --allow-unrelated-histories --no-edit
+                   git merge -X theirs upstream/master --allow-unrelated-histories --no-edit
                    git push upstream HEAD:main
                    git push --delete upstream master
                    '''
