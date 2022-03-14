@@ -14,17 +14,18 @@ pipeline{
                    cd deploymentrepository
                    git fetch
                    git remote add rack_remote https://github.com/JuergenWewer/yuuvis.git
+                   git show-ref
                    pwd
                    ls
                    git fetch rack_remote --no-tags
                    git checkout -b rack_branch rack_remote/master
                    ls
-                   git checkout master
+                   git checkout origin/master
                    ls
                    git read-tree --prefix=rack/ -u rack_branch
                    git checkout rack_branch
                    git pull
-                   git checkout master
+                   git checkout origin/master
                    git merge --squash -s recursive -Xsubtree=rack rack_branch
                    git commit -m "merged subtree rack"
                    git push
