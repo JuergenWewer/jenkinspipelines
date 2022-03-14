@@ -19,7 +19,7 @@ pipeline{
                    git push upstream master
                    git status
                    git show-ref
-                   git checkout upstream/main
+                   git checkout upstream/HEAD:main
                    git merge -X theirs upstream/master --allow-unrelated-histories --no-edit
                    git push upstream HEAD:main
                    git push --delete upstream master
