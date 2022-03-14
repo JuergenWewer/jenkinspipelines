@@ -17,6 +17,8 @@ pipeline{
                    ls
                    git remote add upstream https://github.com/JuergenWewer/deploymentrepository.git
                    git push upstream master
+                   git status
+                   git show-ref
                    git checkout upstream/main
                    git merge -X theirs upstream/master --allow-unrelated-histories --no-edit
                    git push upstream HEAD:main
