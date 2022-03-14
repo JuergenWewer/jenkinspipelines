@@ -8,6 +8,7 @@ pipeline{
                    deleteDir()
                    sh '''
                    git clone https://github.com/JuergenWewer/deploymentrepository.git
+                   cd yuuvis
                    git fetch
                    git remote add rack_remote https://github.com/JuergenWewer/yuuvis.git
                    pwd
