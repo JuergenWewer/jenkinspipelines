@@ -24,6 +24,8 @@ pipeline{
                    git pull
                    git checkout master
                    git merge --squash -s recursive -Xsubtree=rack rack_branch
+                   git commit -m "merged subtree rack"
+                   git push
                    '''
                 }
            }
