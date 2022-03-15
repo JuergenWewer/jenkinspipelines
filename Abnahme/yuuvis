@@ -21,7 +21,7 @@ pipeline{
                    ls
                    git checkout main
                    ls
-                   rm -r yuuvis 2> /dev/null
+                   rm -f -r yuuvis
                    git add .
                    git commit -m "remove yuuvis"
                    git push
