@@ -9,27 +9,27 @@ pipeline{
                    sh '''
                    git config --global user.email "juergen.wewer@gmail.com"
                    git config --global user.name "jenkins"
-                   git clone https://github.com/JuergenWewer/deploymentrepository.git
+                   git clone https://github.com/JuergenWewer/deploy-abnahme.git
                    ls -al
-                   cd deploymentrepository
+                   cd deploy-abnahme
                    git remote add rack_remote https://github.com/JuergenWewer/yuuvis.git
                    git show-ref
                    pwd
                    ls
                    git fetch rack_remote --no-tags
-                   git checkout -b rack_branch rack_remote/master
+                   git checkout -b rack_branch rack_remote/master-abnahme
                    ls
-                   git checkout main
+                   git checkout master
                    ls
                    rm -f -r yuuvis
                    git add .
                    git commit -m "remove yuuvis" --allow-empty
                    git push
-                   git checkout main
+                   git checkout master
                    ls
                    git read-tree --prefix=yuuvis/ -u rack_branch
                    git checkout rack_branch
-                   git checkout main
+                   git checkout master
                    git commit -m "merged subtree"
                    git push
                    '''
