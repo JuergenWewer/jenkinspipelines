@@ -17,7 +17,7 @@ pipeline{
                    pwd
                    ls
                    git fetch rack_remote --no-tags
-                   git checkout -b rack_branch rack_remote/master-abnahme
+                   git checkout -b rack_branch rack_remote/master-produktion
                    ls
                    git checkout master
                    ls
