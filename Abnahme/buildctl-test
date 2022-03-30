@@ -4,14 +4,11 @@ pipeline{
         stage('test buildctl') {
             agent any
             steps {
-               def result = sh 'curl -sSLf https://github.com/moby/buildkit/releases/download/v0.10.0/buildkit-v0.10.0.linux-amd64.tar.gz | sudo tar -xz -C /usr/local/bin/ --strip-components=1'
-                withCredentials([gitUsernamePassword(credentialsId: 'gitJWId', gitToolName: 'Default')]) {
-                   deleteDir()
-                   sh '''
+                script {
+                   def result = sh 'curl -sSLf https://github.com/moby/buildkit/releases/download/v0.10.0/buildkit-v0.10.0.linux-amd64.tar.gz | sudo tar -xz -C /usr/local/bin/ --strip-components=1'
                    sudo buildkitd &
                    buildctl build --help
-                   '''
-                }
+                   }
            }
         }
     }
