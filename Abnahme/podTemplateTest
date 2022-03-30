@@ -3,7 +3,7 @@ podTemplate(containers: [
         name: 'jnlp',
         image: 'jenkins/inbound-agent:4.11-1-jdk11'
         )
-  ]) {
+  ]) pipeline {
 
     node {
         stage('Get a Maven project') {
