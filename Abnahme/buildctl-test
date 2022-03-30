@@ -1,0 +1,21 @@
+pipeline{
+    agent any
+    stages {
+        stage('test buildctl') {
+            agent any
+            steps {
+                withCredentials([gitUsernamePassword(credentialsId: 'gitJWId', gitToolName: 'Default')]) {
+                   deleteDir()
+                   sh '''
+                   buildctl build --help
+                   '''
+                }
+           }
+        }
+    }
+    post {
+        always {
+            deleteDir()
+        }
+    }
+}
