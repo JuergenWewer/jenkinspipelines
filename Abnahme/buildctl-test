@@ -10,7 +10,6 @@ pipeline{
                 withCredentials([gitUsernamePassword(credentialsId: 'gitJWId', gitToolName: 'Default')]) {
                    deleteDir()
                    sh '''
-                   su root -p Eibaer50
                    /tmp/buildkitd &
                    '''
                 }
