@@ -6,8 +6,13 @@ pipeline{
             steps {
                 script {
                    def result = sh 'curl -sSLf https://github.com/moby/buildkit/releases/download/v0.10.0/buildkit-v0.10.0.linux-amd64.tar.gz | tar -xz -C /tmp --strip-components=1'
-                   sudo /tmp/buildkitd &
                    }
+                withCredentials([gitUsernamePassword(credentialsId: 'gitJWId', gitToolName: 'Default')]) {
+                   deleteDir()
+                   sh '''
+                   sudo /tmp/buildkitd &
+                   '''
+                }
            }
         }
     }
