@@ -5,7 +5,7 @@ podTemplate(containers: [
         )
   ]) {
 
-    node(vm3debian10) {
+    node {
         stage('Get a Maven project') {
             agent any
             container('jnlp') {
