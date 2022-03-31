@@ -20,7 +20,7 @@ podTemplate(containers: [
                     sh 'whoami'
                     sh 'pwd'
                     sh 'runc'
-                    sh 'containerd config dump'
+                    sh 'systemctl status containerd'
                     sh 'buildkitd &'
                     sh 'ls -al'
                     sh 'mkdir buildctl'
