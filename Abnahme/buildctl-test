@@ -17,6 +17,7 @@ podTemplate(containers: [
             git url: 'https://github.com/JuergenWewer/csi-raid.git', branch: 'master-abnahme'
             container('buildkit') {
                 stage('Build docker image') {
+                    sh 'whoami'
                     sh 'buildkitd &'
                     sh 'ls -al /run'
                     sh '''
