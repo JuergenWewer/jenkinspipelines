@@ -20,7 +20,11 @@ podTemplate(containers: [
                     sh 'whoami'
                     sh 'buildkitd &'
                     sh 'ls -al'
-                    sh 'buildctl build --frontend dockerfile.v0 --local context=. --local dockerfile=Dockerfile'
+                    sh 'mkdir buildctl'
+                    sh 'cp Dockerfile ./buildctl'
+                    sh 'chmod 777 ./buildctl/Dockerfile'
+                    sh 'ls -al ./buildctl'
+                    sh 'buildctl build --frontend dockerfile.v0 --local context=. --local dockerfile=./buildctl/Dockerfile'
                     sh '''
                     buildctl build --frontend dockerfile.v0 --local context=. --local dockerfile=. --output type=image,name=jw-cloud.org:18443/csi-raid:latest,push=false
                     '''
