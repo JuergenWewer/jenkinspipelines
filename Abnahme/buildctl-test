@@ -26,6 +26,7 @@ podTemplate(containers: [
                     sh 'ls -al ./buildctl'
                     sh 'chmod 777 /tmp'
                     sh 'ls -al /'
+                    sh 'ls -al /var/lib/buildkit/runc-native/snapshots/snapshots/'
                     sh 'ls -al /tmp'
                     sh 'buildctl build --frontend dockerfile.v0 --local context=. --local dockerfile=./buildctl'
                     sh '''
