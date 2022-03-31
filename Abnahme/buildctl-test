@@ -21,7 +21,7 @@ podTemplate(containers: [
                     sh 'buildkitd &'
                     sh 'ls -al'
                     sh 'mkdir buildctl'
-                    sh 'cp Dockerfile ./buildctl'
+                    sh 'cp Dockerfiletest ./buildctl/Dockerfile'
                     sh 'chmod 777 ./buildctl/Dockerfile'
                     sh 'ls -al ./buildctl'
                     sh 'buildctl build --frontend dockerfile.v0 --local context=. --local dockerfile=./buildctl'
