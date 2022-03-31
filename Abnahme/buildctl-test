@@ -1,21 +1,29 @@
-pipeline{
-    agent any
-    stages {
-        stage('test buildctl') {
-            agent any
-            steps {
-                script {
-                   def result = sh 'curl -sSLf https://github.com/moby/buildkit/releases/download/v0.10.0/buildkit-v0.10.0.linux-amd64.tar.gz | tar -xz -C /tmp --strip-components=1'
-                   }
-                script {
-                   sh 'sudo /tmp/buildkitd &'
-                   }
-           }
+podTemplate(containers: [
+    containerTemplate(name: 'maven', image: 'maven:3.8.1-jdk-8', command: 'sleep', args: '99d'),
+    containerTemplate(name: 'buildkit', image: 'jw-cloud.org:18443/jw-jenkinsbuilder', command: 'sleep', args: '99d')
+  ]) {
+
+    node(POD_LABEL) {
+        stage('Get a Maven project') {
+            git 'https://github.com/JuergenWewer/csi-raid.git'
+            container('maven') {
+                stage('Build a Maven project') {
+                    sh 'ls -al'
+                }
+            }
         }
-    }
-    post {
-        always {
-            deleteDir()
+
+        stage('get project') {
+            git url: 'https://github.com/JuergenWewer/csi-raid.git', branch: 'master-abnahme'
+            container('buildkit') {
+                stage('Build docker image') {
+                    sh '''
+                    buildctl build --frontend dockerfile.v0 --local context=. --local dockerfile=. --output type=image,name=jw-cloud.org:18443/csi-raid:latest,push=false
+                    ls -al
+                    '''
+                }
+            }
         }
+
     }
 }
