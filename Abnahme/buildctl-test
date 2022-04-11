@@ -35,6 +35,7 @@ podTemplate(containers: [
                     sh 'ls -al /tmp'
                     sh '''while :
                         do
+                            sleep 10000;
                         	echo "Do something; hit [CTRL+C] to stop!"
                         done'''
                     sh 'buildctl build --frontend dockerfile.v0 --local context=./buildctl --local dockerfile=./buildctl'
