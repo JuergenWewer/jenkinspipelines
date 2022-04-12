@@ -15,6 +15,14 @@ podTemplate(yaml: '''
         - sleep
         args:
         - 99d
+        volumeMounts:
+        - name: export
+          mountPath: /tmp
+      volumes:
+        - name: export
+          persistentVolumeClaim:
+            claimName: buildctl
+
 ''') {
 
     node(POD_LABEL) {
