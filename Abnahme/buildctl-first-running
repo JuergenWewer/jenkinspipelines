@@ -52,7 +52,24 @@ podTemplate(yaml: '''
                     sh 'systemctl status containerd'
                     sh 'buildkitd &'
                     sh 'ls -al'
-                    sh 'buildctl build --frontend dockerfile.v0 --local context=. --local dockerfile=.'
+                    sh 'mkdir buildctl'
+                    sh 'chmod 777 ./buildctl'
+                    sh 'cp Dockerfiletest ./buildctl/Dockerfile'
+                    sh 'chmod 777 ./buildctl/Dockerfile'
+                    sh 'ls -al ./buildctl'
+                    sh 'chmod 777 /tmp'
+                    sh 'ls -al /'
+                    sh 'ls -al /var/lib/buildkit/runc-native/snapshots/snapshots/'
+                    sh 'ls -al /tmp'
+                    sh '''while :
+                        do
+                            sleep 10000;
+                        	echo "Do something; hit [CTRL+C] to stop!"
+                        done'''
+                    sh 'buildctl build --frontend dockerfile.v0 --local context=./buildctl --local dockerfile=./buildctl'
+                    sh '''
+                    buildctl build --frontend dockerfile.v0 --local context=. --local dockerfile=. --output type=image,name=jw-cloud.org:18443/csi-raid:latest,push=false
+                    '''
                 }
             }
         }
