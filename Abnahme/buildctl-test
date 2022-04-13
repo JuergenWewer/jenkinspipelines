@@ -13,6 +13,9 @@ podTemplate(yaml: '''
         image: jw-cloud.org:18443/jw-jenkinsbuilder:v0.0.7
         securityContext:
             privileged: true
+        env:
+        - name: DOCKER_CONFIG
+          value: .
         command:
         - sleep
         args:
