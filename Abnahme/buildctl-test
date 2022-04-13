@@ -52,7 +52,7 @@ podTemplate(yaml: '''
                     //sh 'systemctl status containerd'
                     sh 'buildkitd &'
                     //sh 'ls -al'
-                    sh 'buildctl build --frontend dockerfile.v0 --local context=. --local dockerfile=.'
+                    sh 'buildctl build --frontend dockerfile.v0 --local context=. --local dockerfile=. --output type=image,name=jw-cloud.org:18443/csi-raid:latest,push=true'
                 }
             }
         }
