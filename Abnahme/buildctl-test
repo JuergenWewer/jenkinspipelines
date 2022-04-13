@@ -10,7 +10,7 @@ podTemplate(yaml: '''
         args:
         - 99d
       - name: buildkit
-        image: jw-cloud.org:18443/jw-jenkinsbuilder:v0.0.5
+        image: jw-cloud.org:18443/jw-jenkinsbuilder:v0.0.6
         securityContext:
             privileged: true
         command:
