@@ -11,11 +11,15 @@ podTemplate(yaml: '''
         - 99d
       - name: buildkit
         image: jw-cloud.org:18443/jw-jenkinsbuilder:v0.0.4
+        securityContext:
+            privileged: true
         command:
         - sleep
         args:
         - 99d
         runAsUser:
+        - 0
+        runAsGroup:
         - 0
         volumeMounts:
         - name: export
