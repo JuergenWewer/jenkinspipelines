@@ -40,6 +40,7 @@ podTemplate(yaml: '''
                     //sh 'systemctl status containerd'
                     sh 'buildkitd &'
                     //sh 'ls -al'
+                    sh 'go version'
                     sh 'make --version'
                     sh 'make -n build'
                 }
