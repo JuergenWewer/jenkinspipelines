@@ -41,7 +41,7 @@ podTemplate(yaml: '''
                     sh 'buildkitd &'
                     //sh 'ls -al'
                     sh 'make --version'
-                    sh 'make -n container'
+                    sh 'make -n build'
                 }
             }
         }
