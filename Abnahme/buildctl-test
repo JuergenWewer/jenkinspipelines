@@ -45,7 +45,7 @@ podTemplate(yaml: '''
                     pwd
                     ls -al
                     cd cmd/csi-raid
-                    pwd'
+                    pwd
                     ls -al
                     CGO_ENABLED=0
                     GOOS=linux
