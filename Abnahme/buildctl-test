@@ -4,7 +4,7 @@ podTemplate(yaml: '''
     spec:
       containers:
       - name: buildkit
-        image: jw-cloud.org:18443/jw-jenkinsbuilder:v0.0.7
+        image: jw-cloud.org:18443/jw-jenkinsbuilder:v0.0.8
         securityContext:
             privileged: true
         env:
