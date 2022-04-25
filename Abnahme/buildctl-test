@@ -51,6 +51,7 @@ podTemplate(yaml: '''
                     GOOS=linux
                     GOARCH=amd64
                     go build -a  -o ../../bin .
+                    ls -al ../../bin
                     '''
                     sh 'make --version'
                 }
