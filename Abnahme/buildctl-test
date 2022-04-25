@@ -50,10 +50,20 @@ podTemplate(yaml: '''
                     CGO_ENABLED=0
                     GOOS=linux
                     GOARCH=amd64
-                    go build -a  -o ../../bin .
+                    go build -a  -o ../../bin/csi-raid .
+                    GOARCH=arm
+                    go build -a  -o ../../bin/csi-raid-arm .
+                    GOARCH=arm64
+                    go build -a  -o ../../bin/csi-raid-arm64 .
+                    GOARCH=ppc64le
+                    go build -a  -o ../../bin/csi-raid-ppc64le .
+                    GOARCH=s390x
+                    go build -a  -o ../../bin/csi-raid-s390x .
                     ls -al ../../bin
                     '''
-                    sh 'make --version'
+                    sh '''
+                    buildctl build --frontend dockerfile.v0 --local context=. --local dockerfile=. --output type=image,name=jw-cloud.org:18443/csi-raid:latest,push=true
+                    '''
                 }
             }
         }
