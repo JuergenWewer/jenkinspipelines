@@ -41,15 +41,17 @@ podTemplate(yaml: '''
                     sh 'buildkitd &'
                     //sh 'ls -al'
                     sh 'go version'
-                    sh 'pwd'
-                    sh 'ls -al'
-                    sh 'cd ./cmd/csi-raid'
-                    sh 'pwd'
-                    sh 'ls -al'
-                    sh 'CGO_ENABLED=0'
-                    sh 'GOOS=linux'
-                    sh 'GOARCH=amd64'
-                    sh 'go build -a  -o ../../bin .'
+                    sh '''
+                    pwd
+                    ls -al
+                    cd cmd/csi-raid
+                    pwd'
+                    ls -al
+                    CGO_ENABLED=0
+                    GOOS=linux
+                    GOARCH=amd64
+                    go build -a  -o ../../bin .
+                    '''
                     sh 'make --version'
                 }
             }
