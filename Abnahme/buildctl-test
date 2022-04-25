@@ -40,7 +40,7 @@ podTemplate(yaml: '''
                     //sh 'systemctl status containerd'
                     sh 'buildkitd &'
                     //sh 'ls -al'
-                    sh 'make container'
+                    sh 'make -n container'
                 }
             }
         }
