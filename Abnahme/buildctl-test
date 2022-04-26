@@ -72,7 +72,7 @@ podTemplate(yaml: '''
                     pwd
                     ls -al
                     ./buildctl.sh
-                    rm -r /bin
+                    rm -r ./bin
                     '''
                 }
             }
