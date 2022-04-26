@@ -77,7 +77,6 @@ podTemplate(yaml: '''
             }
         }
         stage('push Repo to deployment Repo') {
-            git 'https://github.com/JuergenWewer/csi-raid.git'
             container('maven') {
                 stage('git checkout and push') {
                     withCredentials([gitUsernamePassword(credentialsId: 'gitJWId', gitToolName: 'Default')]) {
