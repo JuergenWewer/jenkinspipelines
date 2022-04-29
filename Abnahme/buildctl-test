@@ -57,15 +57,15 @@ podTemplate(yaml: '''
                     CGO_ENABLED=0
                     GOOS=linux
                     GOARCH=amd64
-                    go build -a  -o ../../bin/csi-raid .
+                    go build -a -ldflags ' -X main.version=ac7e2a9d6c50cd1ad6a0cf72ff17a936fefd34d1 -extldflags "-static"'  -o ../../bin/csi-raid .
                     GOARCH=arm
-                    go build -a  -o ../../bin/csi-raid-arm .
+                    go build -a -ldflags ' -X main.version=ac7e2a9d6c50cd1ad6a0cf72ff17a936fefd34d1 -extldflags "-static"'  -o ../../bin/csi-raid-arm .
                     GOARCH=arm64
-                    go build -a  -o ../../bin/csi-raid-arm64 .
+                    go build -a -ldflags ' -X main.version=ac7e2a9d6c50cd1ad6a0cf72ff17a936fefd34d1 -extldflags "-static"'  -o ../../bin/csi-raid-arm64 .
                     GOARCH=ppc64le
-                    go build -a  -o ../../bin/csi-raid-ppc64le .
+                    go build -a -ldflags ' -X main.version=ac7e2a9d6c50cd1ad6a0cf72ff17a936fefd34d1 -extldflags "-static"'  -o ../../bin/csi-raid-ppc64le .
                     GOARCH=s390x
-                    go build -a  -o ../../bin/csi-raid-s390x .
+                    go build -a -ldflags ' -X main.version=ac7e2a9d6c50cd1ad6a0cf72ff17a936fefd34d1 -extldflags "-static"'  -o ../../bin/csi-raid-s390x .
                     ls -al ../../bin
                     '''
                     sh '''
