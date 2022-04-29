@@ -58,7 +58,7 @@ podTemplate(yaml: '''
                     echo $REV
                     IMPORTPATH_LDFLAGS=" -X main.version=$REV"
                     echo $IMPORTPATH_LDFLAGS
-                    EXT_LDFLAGS= -extldflags '"-static"'
+                    EXT_LDFLAGS=' -extldflags "-static"'
                     LDFLAGS=
                     FULL_LDFLAGS= $LDFLAGS $IMPORTPATH_LDFLAGS $EXT_LDFLAGS
                     CGO_ENABLED=0
