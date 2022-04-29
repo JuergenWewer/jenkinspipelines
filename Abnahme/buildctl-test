@@ -56,7 +56,8 @@ podTemplate(yaml: '''
                     ls -al
                     REV=$(shell git describe --long --tags --match='v*' --dirty 2>/dev/null || git rev-list -n1 HEAD)
                     echo $REV
-                    IMPORTPATH_LDFLAGS = -X main.version=$REV
+                    IMPORTPATH_LDFLAGS = -X main.version=$REV -extldflags "-static"
+                    echo $IMPORTPATH_LDFLAGS
                     EXT_LDFLAGS = -extldflags "-static"
                     LDFLAGS =
                     FULL_LDFLAGS = $LDFLAGS $IMPORTPATH_LDFLAGS $EXT_LDFLAGS
