@@ -59,7 +59,7 @@ podTemplate(yaml: '''
                     IMPORTPATH_LDFLAGS = -X main.version=$REV
                     EXT_LDFLAGS = -extldflags "-static"
                     LDFLAGS =
-                    FULL_LDFLAGS = $(LDFLAGS) $(IMPORTPATH_LDFLAGS) $(EXT_LDFLAGS)
+                    FULL_LDFLAGS = $LDFLAGS $IMPORTPATH_LDFLAGS $EXT_LDFLAGS
                     CGO_ENABLED=0
                     GOOS=linux
                     GOARCH=amd64
