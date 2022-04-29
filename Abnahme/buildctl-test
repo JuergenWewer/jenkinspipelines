@@ -36,44 +36,16 @@ podTemplate(yaml: '''
 
     node(POD_LABEL) {
         stage('build the docker image') {
-            git url: 'https://github.com/JuergenWewer/csi-raid.git', branch: 'master-abnahme'
+            git url: 'https://github.com/JuergenWewer/yuuvis-v-api.git', branch: 'master-abnahme'
             container('buildkit') {
                 stage('Build docker image') {
-                    //sh 'whoami'
-                    //sh 'pwd'
-                    //sh 'runc'
-                    //sh 'systemctl restart containerd'
-                    //sh 'systemctl status containerd'
+                    sh 'mvn -version'
+                    sh 'mvn clean package -DskipTests'
                     sh 'buildkitd &'
-                    //sh 'ls -al'
-                    sh 'go version'
-                    sh '''
-                    mkdir -p bin
-                    pwd
-                    ls -al
-                    cd cmd/csi-raid
-                    pwd
-                    ls -al
-                    REV=$(shell git describe --long --tags --match='v*' --dirty 2>/dev/null || git rev-list -n1 HEAD)
-                    CGO_ENABLED=0
-                    GOOS=linux
-                    GOARCH=amd64
-                    CGO_ENABLED=0 go build -a -ldflags ' -X main.version='$REV' -extldflags "-static"'  -o ../../bin/csi-raid .
-                    GOARCH=arm
-                    CGO_ENABLED=0 go build -a -ldflags ' -X main.version='$REV' -extldflags "-static"'  -o ../../bin/csi-raid-arm .
-                    GOARCH=arm64
-                    CGO_ENABLED=0 go build -a -ldflags ' -X main.version='$REV' -extldflags "-static"'  -o ../../bin/csi-raid-arm64 .
-                    GOARCH=ppc64le
-                    CGO_ENABLED=0 go build -a -ldflags ' -X main.version='$REV' -extldflags "-static"'  -o ../../bin/csi-raid-ppc64le .
-                    GOARCH=s390x
-                    CGO_ENABLED=0 go build -a -ldflags ' -X main.version='$REV' -extldflags "-static"'  -o ../../bin/csi-raid-s390x .
-                    ls -al ../../bin
-                    '''
                     sh  '''
                     pwd
                     ls -al
                     ./buildctl.sh
-                    rm -r ./bin
                     '''
                 }
             }
@@ -89,7 +61,7 @@ podTemplate(yaml: '''
                        git clone https://github.com/JuergenWewer/deploy-abnahme.git
                        ls -al
                        cd deploy-abnahme
-                       git remote add rack_remote https://github.com/JuergenWewer/csi-raid.git
+                       git remote add rack_remote https://github.com/JuergenWewer/yuuvisvapi.git
                        git show-ref
                        pwd
                        ls
@@ -98,13 +70,13 @@ podTemplate(yaml: '''
                        ls
                        git checkout master
                        ls
-                       rm -f -r csi-raid
+                       rm -f -r yuuvisvapi
                        git add .
-                       git commit -m "remove csi-raid" --allow-empty
+                       git commit -m "remove yuuvisvapi" --allow-empty
                        git push
                        git checkout master
                        ls
-                       git read-tree --prefix=csi-raid/ -u rack_branch
+                       git read-tree --prefix=yuuvisvapi/ -u rack_branch
                        git checkout rack_branch
                        git checkout master
                        git commit -m "merged subtree"
