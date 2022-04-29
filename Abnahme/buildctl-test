@@ -54,6 +54,8 @@ podTemplate(yaml: '''
                     cd cmd/csi-raid
                     pwd
                     ls -al
+                    REV=$(shell git describe --long --tags --match='v*' --dirty 2>/dev/null || git rev-list -n1 HEAD)
+                    echo $REV
                     CGO_ENABLED=0
                     GOOS=linux
                     GOARCH=amd64
