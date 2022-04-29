@@ -1,45 +1,89 @@
-pipeline{
-    agent any
-    stages {
-        stage('push Repo to deployment Repo') {
-            agent any
-            steps {
-                withCredentials([gitUsernamePassword(credentialsId: 'gitJWId', gitToolName: 'Default')]) {
-                   deleteDir()
-                   sh '''
-                   git config --global user.email "juergen.wewer@gmail.com"
-                   git config --global user.name "jenkins"
-                   git clone https://github.com/JuergenWewer/deploy-abnahme.git
-                   ls -al
-                   cd deploy-abnahme
-                   git remote add rack_remote https://github.com/JuergenWewer/yuuvisvapi.git
-                   git show-ref
-                   pwd
-                   ls
-                   git fetch rack_remote --no-tags
-                   git checkout -b rack_branch rack_remote/master-abnahme
-                   ls
-                   git checkout master
-                   ls
-                   rm -f -r yuuvisvapi
-                   git add .
-                   git commit -m "remove yuuvisvapi" --allow-empty
-                   git push
-                   git checkout master
-                   ls
-                   git read-tree --prefix=yuuvisvapi/ -u rack_branch
-                   git checkout rack_branch
-                   git checkout master
-                   git commit -m "merged subtree"
-                   git push
-                   '''
+podTemplate(yaml: '''
+    apiVersion: v1
+    kind: Pod
+    spec:
+      containers:
+      - name: maven
+        image: maven:3.8.1-jdk-8
+        command:
+        - sleep
+        args:
+        - 99d
+      - name: buildkit
+        image: jw-cloud.org:18443/jw-jenkinsbuilder:v0.0.9
+        securityContext:
+            privileged: true
+        env:
+        - name: DOCKER_CONFIG
+          value: .
+        command:
+        - sleep
+        args:
+        - 99d
+        runAsUser:
+        - 0
+        runAsGroup:
+        - 0
+        volumeMounts:
+        - name: export
+          mountPath: /tmp
+      volumes:
+        - name: export
+          persistentVolumeClaim:
+            claimName: buildctl
+
+''') {
+
+    node(POD_LABEL) {
+        stage('build the docker image') {
+            git url: 'https://github.com/JuergenWewer/yuuvisvapi.git', branch: 'master-abnahme'
+            container('buildkit') {
+                stage('Build docker image') {
+                    sh 'mvn -version'
+                    sh 'mvn clean package -DskipTests'
+                    sh 'buildkitd &'
+                    sh  '''
+                    pwd
+                    ls -al
+                    ./buildctl.sh
+                    '''
                 }
-           }
+            }
         }
-    }
-    post {
-        always {
-            deleteDir()
+        stage('push Repo to deployment Repo') {
+            container('maven') {
+                stage('git checkout and push') {
+                    withCredentials([gitUsernamePassword(credentialsId: 'gitJWId', gitToolName: 'Default')]) {
+                       sh '''
+                       git config --global user.email "juergen.wewer@gmail.com"
+                       git config --global user.name "jenkins"
+                       git clone https://github.com/JuergenWewer/deploy-abnahme.git
+                       ls -al
+                       cd deploy-abnahme
+                       git remote add rack_remote https://github.com/JuergenWewer/yuuvisvapi.git
+                       git show-ref
+                       pwd
+                       ls
+                       git fetch rack_remote --no-tags
+                       git checkout -b rack_branch rack_remote/master-abnahme
+                       ls
+                       git checkout master
+                       ls
+                       rm -f -r yuuvisvapi
+                       git add .
+                       git commit -m "remove yuuvisvapi" --allow-empty
+                       git push
+                       git checkout master
+                       ls
+                       git read-tree --prefix=yuuvisvapi/ -u rack_branch
+                       git checkout rack_branch
+                       git checkout master
+                       git commit -m "merged subtree"
+                       git push
+                       '''
+                    }
+                }
+            }
         }
     }
 }
