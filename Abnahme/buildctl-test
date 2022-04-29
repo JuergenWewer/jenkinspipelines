@@ -54,7 +54,8 @@ podTemplate(yaml: '''
                     cd cmd/csi-raid
                     pwd
                     ls -al
-                    env REV=$(shell git describe --long --tags --match='v*' --dirty 2>/dev/null || git rev-list -n1 HEAD)
+                    REV=$(shell git describe --long --tags --match='v*' --dirty 2>/dev/null || git rev-list -n1 HEAD)
+                    echo $REV
                     env IMPORTPATH_LDFLAGS = -X main.version=$(REV)
                     EXT_LDFLAGS = -extldflags "-static"
                     LDFLAGS =
