@@ -54,7 +54,6 @@ podTemplate(yaml: '''
             container('maven') {
                 stage('git checkout and push') {
                     withCredentials([gitUsernamePassword(credentialsId: 'gitJWId', gitToolName: 'Default')]) {
-                       deleteDir()
                        sh '''
                        git config --global user.email "juergen.wewer@gmail.com"
                        git config --global user.name "jenkins"
