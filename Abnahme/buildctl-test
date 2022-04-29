@@ -36,7 +36,7 @@ podTemplate(yaml: '''
 
     node(POD_LABEL) {
         stage('build the docker image') {
-            git url: 'https://github.com/JuergenWewer/yuuvis-v-api.git', branch: 'master-abnahme'
+            git url: 'https://github.com/JuergenWewer/yuuvisvapi.git', branch: 'master-abnahme'
             container('buildkit') {
                 stage('Build docker image') {
                     sh 'mvn -version'
