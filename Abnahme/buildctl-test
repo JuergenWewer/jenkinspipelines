@@ -60,11 +60,11 @@ podTemplate(yaml: '''
                     echo $IMPORTPATH_LDFLAGS
                     EXT_LDFLAGS=' -extldflags "-static"'
                     LDFLAGS=
-                    FULL_LDFLAGS=" $LDFLAGS $IMPORTPATH_LDFLAGS $EXT_LDFLAGS"
+                    FULL_LDFLAGS="'"$LDFLAGS $IMPORTPATH_LDFLAGS $EXT_LDFLAGS"'"
                     CGO_ENABLED=0
                     GOOS=linux
                     GOARCH=amd64
-                    CGO_ENABLED=0 go build -a -ldflags "'"$FULL_LDFLAGS"'"  -o ../../bin/csi-raid .
+                    CGO_ENABLED=0 go build -a -ldflags $FULL_LDFLAGS  -o ../../bin/csi-raid .
                     GOARCH=arm
                     CGO_ENABLED=0 go build -a -ldflags ' -X main.version=ac7e2a9d6c50cd1ad6a0cf72ff17a936fefd34d1 -extldflags "-static"'  -o ../../bin/csi-raid-arm .
                     GOARCH=arm64
